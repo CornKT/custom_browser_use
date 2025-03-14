@@ -8,7 +8,7 @@ from schemas.system_prompt import MySystemPrompt
 
 load_dotenv()
 
-config = BrowserConfig(headless=False, disable_security=True)
+config = BrowserConfig(headless=True, disable_security=True)
 
 browser = Browser(config=config)
 house_controller = Controller(output_model=Region)
