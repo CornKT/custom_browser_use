@@ -1,5 +1,5 @@
 from langchain_openai import ChatOpenAI
-from browser_use import Agent, Browser, Controller
+from browser_use import Agent, Browser, BrowserConfig, Controller
 import asyncio
 from dotenv import load_dotenv
 
@@ -8,7 +8,9 @@ from schemas.system_prompt import MySystemPrompt
 
 load_dotenv()
 
+config = BrowserConfig(headless=False, disable_security=True)
 
+browser = Browser(config=config)
 house_controller = Controller(output_model=Region)
 
 
@@ -29,7 +31,7 @@ async def get_house_urls(url):
         Exit and return data.
         REMEMBER: THE KEY OF RETURN LIST ALWAY 'property_urls', DONT CLICK ON BUTTONS HAVING THE TEXT DIFFERENT THAN WHAT I GIVEN."""
     agent = Agent(
-        headless=True,
+        browser=browser,
         task=task_2,
         llm=ChatOpenAI(model="gpt-4o-mini"),
         controller=house_controller,
